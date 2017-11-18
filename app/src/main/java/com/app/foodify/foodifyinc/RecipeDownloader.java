@@ -85,7 +85,7 @@ public class RecipeDownloader extends AsyncTask<String, Void, ArrayList<Recipe>>
                 // Extract recipe from each hit
                 for(int i = 0; i < hits.length(); ++i) {
                     // Each "recipe" is a JSON object
-                    JSONObject jsonRecipe = hits.getJSONObject(i);
+                    JSONObject jsonRecipe = hits.getJSONObject(i).getJSONObject("recipe");
 
                     Recipe recipe = extractRecipe(jsonRecipe);
                     recipes.add(recipe);
