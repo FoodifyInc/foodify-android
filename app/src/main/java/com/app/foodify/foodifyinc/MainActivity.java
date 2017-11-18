@@ -17,8 +17,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifiedImages;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyOptions;
+
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int IMAGE_PERMISSION = 4 ;
     private String mCurrentPhotoPath;
     private File imageFile;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +102,20 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == CAM_REQUEST && resultCode == RESULT_OK) {
             Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
             imageView.setImageURI(Uri.fromFile(imageFile));
+            FileInputStream inputStream = null;
+            try {
+                inputStream = new FileInputStream(mCurrentPhotoPath);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            VisualRecognition visualRecognitionService = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20);
+            visualRecognitionService.setApiKey("8d7aced8efa9ce11cca985d203dce5989cc20148");
+            ClassifyOptions classifyOptions = new ClassifyOptions.Builder()
+                    .imagesFile(inputStream)
+                    .imagesFilename(mCurrentPhotoPath)
+                    .build();
+            ClassifiedImages result = visualRecognitionService.classify(classifyOptions).execute();
+            Log.w("FOODIFY", "Result: " + result.toString());
         }
     }
 }
