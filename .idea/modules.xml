@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\shuse_000\Documents\Year3\Hackthon\foodify-android\app\app.iml" filepath="C:\Users\shuse_000\Documents\Year3\Hackthon\foodify-android\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/foodify-android.iml" filepath="$PROJECT_DIR$/foodify-android.iml" />
+      <module fileurl="file://C:\Users\shuse_000\Documents\Year3\Hackthon\foodify-android\foodify-android.iml" filepath="C:\Users\shuse_000\Documents\Year3\Hackthon\foodify-android\foodify-android.iml" />
     </modules>
   </component>
 </project>

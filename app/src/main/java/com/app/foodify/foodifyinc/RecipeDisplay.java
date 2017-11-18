@@ -6,8 +6,17 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RecipeDisplay extends AppCompatActivity {
+
+    private ArrayList<String> recipesList=new ArrayList <>();
+    private ArrayAdapter<String> arrayAdapter;
+    private EditText text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,13 +25,12 @@ public class RecipeDisplay extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        String[] item={"One","Two","Three","Four"};
+        recipesList=new ArrayList <>(Arrays.asList(item));
+
+        //arrayAdapter=new ArrayAdapter <String>
+
+
+
     }
 }
