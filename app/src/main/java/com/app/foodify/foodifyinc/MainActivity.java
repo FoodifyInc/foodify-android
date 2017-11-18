@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private String mCurrentPhotoPath;
     private File imageFile;
 
-
+    private RecipeDownloadCompleted recipeDownloadCompleted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
                 startCameraIntent();
             }
         });
+
+        recipeDownloadCompleted = new RecipeDownloadCompleted();
 
     }
 
@@ -97,6 +100,17 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == CAM_REQUEST && resultCode == RESULT_OK) {
             Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
             imageView.setImageURI(Uri.fromFile(imageFile));
+        }
+    }
+
+    /**
+     * Contains a callback that's used to display recipes after they're downloaded.
+     */
+    private class RecipeDownloadCompleted implements AsyncTaskCompleted<ArrayList<Recipe>> {
+
+        @Override
+        public void onTaskCompleted(ArrayList<Recipe> val) {
+            // TODO: use callback to display recipes
         }
     }
 }
