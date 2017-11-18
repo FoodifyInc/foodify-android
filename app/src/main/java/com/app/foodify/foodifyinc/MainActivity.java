@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         else if(startCameraIntent.resolveActivity(getPackageManager()) != null){
             imageFile = createImageFile();
             if(imageFile != null){
-                Uri photoURI = FileProvider.getUriForFile(this, "com.foodify.android.FileProvider", imageFile);
+                Uri photoURI = FileProvider.getUriForFile(this, "com.app.foodify.FileProvider", imageFile);
                 startCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(startCameraIntent, CAM_REQUEST);
             }
