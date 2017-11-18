@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button cameraButton;
     private ImageView imageView;
+    private Button recipeHistory;
     private static final int CAM_REQUEST = 1001;
     private static final int IMAGE_PERMISSION = 4 ;
     private String mCurrentPhotoPath;
@@ -47,11 +48,19 @@ public class MainActivity extends AppCompatActivity {
 
         cameraButton = findViewById(R.id.cameraButton);
         imageView = findViewById(R.id.mainView);
+        recipeHistory = findViewById(R.id.recipeBtn);
 
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startCameraIntent();
+            }
+        });
+
+        recipeHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,RecipeDisplay.class));
             }
         });
 
