@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private String mCurrentPhotoPath;
     private File imageFile;
 
+    private static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,14 +110,20 @@ public class MainActivity extends AppCompatActivity {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            VisualRecognition visualRecognitionService = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20);
-            visualRecognitionService.setApiKey("8d7aced8efa9ce11cca985d203dce5989cc20148");
+//            VisualRecognition visualRecognitionService = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20);
+//            visualRecognitionService.setApiKey("8d7aced8efa9ce11cca985d203dce5989cc20148");
             ClassifyOptions classifyOptions = new ClassifyOptions.Builder()
                     .imagesFile(inputStream)
                     .imagesFilename(mCurrentPhotoPath)
                     .build();
-            ClassifiedImages result = visualRecognitionService.classify(classifyOptions).execute();
-            Log.w("FOODIFY", "Result: " + result.toString());
+
+            new WatsonDownloader(this).execute(classifyOptions);
+//            ClassifiedImages result = visualRecognitionService.classify(classifyOptions).execute();
+//            Log.w("FOODIFY", "Result: " + result.toString());
         }
+    }
+
+    public void onFinishWatson(String result) {
+        Log.i(TAG, "onFinishWatson: " + result);
     }
 }
