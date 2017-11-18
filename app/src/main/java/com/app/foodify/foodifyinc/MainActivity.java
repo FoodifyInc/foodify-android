@@ -26,6 +26,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private File imageFile;
 
     private static final String TAG = "MainActivity";
+    private RecipeDownloadCompleted recipeDownloadCompleted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
                 startCameraIntent();
             }
         });
+
+        recipeDownloadCompleted = new RecipeDownloadCompleted();
 
     }
 
@@ -125,5 +129,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void onFinishWatson(String result) {
         Log.i(TAG, "onFinishWatson: " + result);
+    }
+    /**
+     * Contains a callback that's used to display recipes after they're downloaded.
+     */
+    private class RecipeDownloadCompleted implements AsyncTaskCompleted<ArrayList<Recipe>> {
+
+        @Override
+        public void onTaskCompleted(ArrayList<Recipe> val) {
+            // TODO: use callback to display recipes
+        }
     }
 }

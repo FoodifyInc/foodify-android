@@ -21,12 +21,27 @@ import java.util.ArrayList;
  * Created by agoston on 11/18/17.
  */
 
+/**
+ * Downloads recipes based on the name of the food.
+ */
 public class RecipeDownloader extends AsyncTask<String, Void, ArrayList<Recipe>> {
+
+    AsyncTaskCompleted<ArrayList<Recipe>> taskCompleted;
 
     private static final String APP_ID = "4df6fe39";
     private static final String API_KEY = "1fbf798ae6b2bc5f75ee3a6a60de044a";
     private static final String API_PATH = "https://api.edamam.com/search?app_id=" + APP_ID +
             "&app_key=" + API_KEY;
+
+
+    /**
+     * Creates a new RecipeDownloader.
+     * @param taskCompleted Interface that contains callback that gets called
+     *                      when the download is complete.
+     */
+    public RecipeDownloader(AsyncTaskCompleted<ArrayList<Recipe>> taskCompleted) {
+        this.taskCompleted = taskCompleted;
+    }
 
     @Override
     protected ArrayList<Recipe> doInBackground(String... strings) {
@@ -67,6 +82,7 @@ public class RecipeDownloader extends AsyncTask<String, Void, ArrayList<Recipe>>
             if(json.has("hits")) {
                 JSONArray hits = json.getJSONArray("hits");
 
+                // Extract recipe from each hit
                 for(int i = 0; i < hits.length(); ++i) {
                     // Each "recipe" is a JSON object
                     JSONObject jsonRecipe = hits.getJSONObject(i);
@@ -82,6 +98,11 @@ public class RecipeDownloader extends AsyncTask<String, Void, ArrayList<Recipe>>
         }
 
         return recipes;
+    }
+
+    @Override
+    protected void onPostExecute(ArrayList<Recipe> recipes) {
+        this.taskCompleted.onTaskCompleted(recipes);
     }
 
     /**
