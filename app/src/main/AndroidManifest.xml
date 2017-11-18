@@ -38,6 +38,10 @@
                     android:name="android.support.FILE_PROVIDER_PATHS"
                     android:resource="@xml/file_paths" />
             </provider>
-        </application>
+        <activity
+            android:name=".RecipeDisplay"
+            android:label="@string/title_activity_recipe_display"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+    </application>
 
 </manifest>
