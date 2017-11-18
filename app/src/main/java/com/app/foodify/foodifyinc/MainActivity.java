@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         recipeDownloadCompleted = new RecipeDownloadCompleted();
 
+        startCameraIntent();
     }
 
     private void startCameraIntent() {
