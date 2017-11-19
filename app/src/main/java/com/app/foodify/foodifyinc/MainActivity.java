@@ -146,8 +146,9 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, "recipe: " + recipe.getRecipeName());
             }
 
+            RecipeStorage.getInstance().setRecipes(val);
+
             Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
-            intent.putExtra("recipes", val);
             startActivity(intent);
         }
     }

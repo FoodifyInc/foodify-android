@@ -24,11 +24,7 @@ public class RecipeActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recipeList = new ArrayList<>();
-        for(int i = 0; i < 20; i++){
-            Recipe recipeItem = new Recipe("Heading " + (i+1));
-            recipeList.add(recipeItem);
-        }
+        recipeList = RecipeStorage.getInstance().getRecipes();
 
         adapter = new RecipeAdapter(recipeList, this);
         recyclerView.setAdapter(adapter);
