@@ -49,12 +49,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        recipeHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,RecipeDisplay.class));
-            }
-        });
+//        recipeHistory.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(MainActivity.this,RecipeDisplay.class));
+//            }
+//        });
 
         recipeDownloadCompleted = new RecipeDownloadCompleted();
 
