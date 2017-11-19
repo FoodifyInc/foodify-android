@@ -23,6 +23,10 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifiedImages;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -152,7 +156,9 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onTaskCompleted(ArrayList<Recipe> val) {
-            // TODO: use callback to display recipes
+            for(Recipe recipe : val) {
+                Log.i(TAG, "recipe: " + recipe.getRecipeName());
+            }
         }
     }
 
@@ -164,6 +170,21 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onTaskCompleted(String val) {
             Log.i(TAG, "onFinishWatson: " + val);
+
+            try {
+                JSONObject json = new JSONObject(val);
+                JSONArray imgArray = json.getJSONArray("images");
+
+                JSONArray classifiers = imgArray.getJSONObject(0).getJSONArray("classifiers");
+                JSONArray classes = classifiers.getJSONObject(0).getJSONArray("classes");
+                String foodClass = classes.getJSONObject(0).getString("class");
+
+                Log.i(TAG, "foodClass: " + foodClass);
+
+                new RecipeDownloader(recipeDownloadCompleted).execute(foodClass);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
