@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
         cameraButton = findViewById(R.id.cameraButton);
         imageView = findViewById(R.id.mainView);
-        recipeHistory = findViewById(R.id.recipeBtn);
 
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override

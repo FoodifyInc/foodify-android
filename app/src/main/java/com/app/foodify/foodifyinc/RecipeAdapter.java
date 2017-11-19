@@ -1,11 +1,14 @@
 package com.app.foodify.foodifyinc;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -29,9 +32,17 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Recipe recipe = recipes.get(position);
+        final Recipe recipe = recipes.get(position);
         holder.textViewHeading.setText(recipe.getRecipeName());
         holder.recipeImage.setImageBitmap(recipe.getImage());
+
+        holder.mainLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(recipe.getRecipeUrl().toString()));
+                view.getContext().startActivity(browserIntent);
+            }
+        });
     }
 
     @Override
@@ -42,12 +53,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView textViewHeading;
         ImageView recipeImage;
+        LinearLayout mainLinearLayout;
 
         ViewHolder(View itemView) {
             super(itemView);
 
             textViewHeading = itemView.findViewById(R.id.textViewHead);
             recipeImage = itemView.findViewById(R.id.recipeImage);
+            mainLinearLayout = itemView.findViewById(R.id.mainLinearLayout);
         }
     }
 }
