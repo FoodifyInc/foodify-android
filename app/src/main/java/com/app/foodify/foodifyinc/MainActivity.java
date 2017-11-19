@@ -3,6 +3,8 @@ package com.app.foodify.foodifyinc;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -21,6 +23,8 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifiedImages;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyOptions;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -124,14 +128,14 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == CAM_REQUEST && resultCode == RESULT_OK) {
-            Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Picture taken", Toast.LENGTH_SHORT).show();
+
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bos);
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(bos.toByteArray());
+
             imageView.setImageURI(Uri.fromFile(imageFile));
-            FileInputStream inputStream = null;
-            try {
-                inputStream = new FileInputStream(mCurrentPhotoPath);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
             ClassifyOptions classifyOptions = new ClassifyOptions.Builder()
                     .imagesFile(inputStream)
                     .imagesFilename(mCurrentPhotoPath)
