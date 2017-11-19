@@ -28,6 +28,10 @@ public class Recipe {
      */
     private Bitmap image;
 
+    public Recipe(String recipeName){
+        this.recipeName = recipeName;
+    }
+
     public Recipe(String recipeName, URL recipeUrl, Bitmap image) {
         this.recipeName = recipeName;
         this.recipeUrl = recipeUrl;

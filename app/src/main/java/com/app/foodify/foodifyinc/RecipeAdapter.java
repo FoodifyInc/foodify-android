@@ -5,17 +5,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
 
-    private List<RecipeItem> recipeItems;
+    private List<Recipe> recipes;
     private Context context;
 
-    public RecipeAdapter(List<RecipeItem> recipeItems, Context context) {
-        this.recipeItems = recipeItems;
+    public RecipeAdapter(List<Recipe> recipes, Context context) {
+        this.recipes = recipes;
         this.context = context;
     }
 
@@ -28,26 +29,25 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        RecipeItem recipeItem = recipeItems.get(position);
-
-        holder.textViewHeading.setText(recipeItem.getHeading());
-        holder.textViewDescription.setText(recipeItem.getDescription());
+        Recipe recipe = recipes.get(position);
+        holder.textViewHeading.setText(recipe.getRecipeName());
+        holder.recipeImage.setImageBitmap(recipe.getImage());
     }
 
     @Override
     public int getItemCount() {
-        return recipeItems.size();
+        return recipes.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView textViewHeading;
-        TextView textViewDescription;
+        ImageView recipeImage;
 
         ViewHolder(View itemView) {
             super(itemView);
 
             textViewHeading = itemView.findViewById(R.id.textViewHead);
-            textViewDescription = itemView.findViewById(R.id.textViewDescription);
+            recipeImage = itemView.findViewById(R.id.recipeImage);
         }
     }
 }
