@@ -16,6 +16,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+
 }
 
 dependencies {
@@ -29,4 +33,5 @@ dependencies {
     compile 'com.ibm.watson.developer_cloud:visual-recognition:4.0.0'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     implementation 'com.android.support:cardview-v7:26.1.0'
+    compile 'io.fotoapparat.fotoapparat:library:1.4.1'
 }
