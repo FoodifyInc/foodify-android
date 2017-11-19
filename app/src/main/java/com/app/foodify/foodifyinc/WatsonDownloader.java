@@ -14,10 +14,11 @@ import java.io.File;
 
 public class WatsonDownloader extends AsyncTask<ClassifyOptions, Void, String> {
 
-    private final MainActivity activity;
 
-    public WatsonDownloader(MainActivity activity) {
-        this.activity = activity;
+    private final AsyncTaskCompleted<String> asyncTaskCompleted;
+
+    public WatsonDownloader(AsyncTaskCompleted<String> taskCompleted) {
+        asyncTaskCompleted = taskCompleted;
     }
 
     @Override
@@ -33,6 +34,6 @@ public class WatsonDownloader extends AsyncTask<ClassifyOptions, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
-        activity.onFinishWatson(s);
+        asyncTaskCompleted.onTaskCompleted(s);
     }
 }

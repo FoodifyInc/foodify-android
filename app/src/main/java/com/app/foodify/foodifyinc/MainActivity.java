@@ -39,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
     private File imageFile;
 
     private static final String TAG = "MainActivity";
+
     private RecipeDownloadCompleted recipeDownloadCompleted;
+    private WatsonDownloadCompleted watsonDownloadCompleted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         recipeDownloadCompleted = new RecipeDownloadCompleted();
-
+        watsonDownloadCompleted = new WatsonDownloadCompleted();
     }
 
     private void startCameraIntent() {
@@ -123,22 +125,15 @@ public class MainActivity extends AppCompatActivity {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-//            VisualRecognition visualRecognitionService = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20);
-//            visualRecognitionService.setApiKey("8d7aced8efa9ce11cca985d203dce5989cc20148");
             ClassifyOptions classifyOptions = new ClassifyOptions.Builder()
                     .imagesFile(inputStream)
                     .imagesFilename(mCurrentPhotoPath)
                     .build();
 
-            new WatsonDownloader(this).execute(classifyOptions);
-//            ClassifiedImages result = visualRecognitionService.classify(classifyOptions).execute();
-//            Log.w("FOODIFY", "Result: " + result.toString());
+            new WatsonDownloader(watsonDownloadCompleted).execute(classifyOptions);
         }
     }
 
-    public void onFinishWatson(String result) {
-        Log.i(TAG, "onFinishWatson: " + result);
-    }
     /**
      * Contains a callback that's used to display recipes after they're downloaded.
      */
@@ -147,6 +142,17 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onTaskCompleted(ArrayList<Recipe> val) {
             // TODO: use callback to display recipes
+        }
+    }
+
+    /**
+     * Contains a callback that's used to pass the food name to the RecipeDownloader
+     */
+    private class WatsonDownloadCompleted implements AsyncTaskCompleted<String> {
+
+        @Override
+        public void onTaskCompleted(String val) {
+            Log.i(TAG, "onFinishWatson: " + val);
         }
     }
 }
