@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -38,7 +39,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button cameraButton;
+    private ImageButton cameraButton;
     private ImageView imageView;
     private Button recipeHistory;
     private static final int CAM_REQUEST = 1001;
@@ -115,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        cameraButton.setVisibility(View.GONE);
 
         if (requestCode == CAM_REQUEST && resultCode == RESULT_OK) {
             Toast.makeText(this, "Picture taken", Toast.LENGTH_SHORT).show();
