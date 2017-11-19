@@ -28,7 +28,6 @@ public class RecipeDisplay extends AppCompatActivity {
         String[] item={"One","Two","Three","Four"};
         recipesList=new ArrayList <>(Arrays.asList(item));
 
-        //arrayAdapter=new ArrayAdapter <String>
 
 
 
