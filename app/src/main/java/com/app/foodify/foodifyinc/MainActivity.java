@@ -68,6 +68,13 @@ public class MainActivity extends AppCompatActivity {
 
         recipeDownloadCompleted = new RecipeDownloadCompleted();
         watsonDownloadCompleted = new WatsonDownloadCompleted();
+//        recipeHistory.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(MainActivity.this,RecipeDisplay.class));
+//            }
+//        });
+
     }
 
     private void startCameraIntent() {
