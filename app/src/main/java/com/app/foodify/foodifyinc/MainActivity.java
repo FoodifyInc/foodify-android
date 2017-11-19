@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
@@ -40,6 +41,9 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private ImageButton cameraButton;
+    private TextView text1;
+    private TextView text2;
+
     private ImageView imageView;
     private Button recipeHistory;
     private static final int CAM_REQUEST = 1001;
@@ -58,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         cameraButton = findViewById(R.id.cameraButton);
+        text1 = findViewById(R.id.greatText);
+        text1.setVisibility(View.GONE);
+        text2 = findViewById(R.id.greatText2);
+        text2.setVisibility(View.GONE);
         imageView = findViewById(R.id.mainView);
 
         cameraButton.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +126,9 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         cameraButton.setVisibility(View.GONE);
+        text1.setVisibility(View.VISIBLE);
+        text2.setVisibility(View.VISIBLE);
+
 
         if (requestCode == CAM_REQUEST && resultCode == RESULT_OK) {
             Toast.makeText(this, "Picture taken", Toast.LENGTH_SHORT).show();
